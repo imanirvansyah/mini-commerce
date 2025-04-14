@@ -2,7 +2,7 @@ import Link from "next/link"
 
 const BottomBar = () => {
   return (
-    <div className="flex justify-between items-center bg-gray-800 p-4 absolute bottom-0 w-full md:hidden">
+    <div className="flex justify-between items-center bg-gray-800 p-4 bottom-0 w-full md:hidden fixed z-50 bottom-0">
       {NAV_ITEMS.map((item) => (
         <Link href={item.path} key={item.name} className="flex flex-col items-center text-white cursor-pointer hover:bg-gray-700 rounded-md bg-gray-800">
           <i className={`icon-${item.icon}`}></i>

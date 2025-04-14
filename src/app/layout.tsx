@@ -33,7 +33,7 @@ export default function RootLayout({
       >
         <TopBar />
         <Sidebar />
-        <div className="md:ml-64 p-4">
+        <div className="p-4 py-16 md:ml-64">
           {children}
         </div>
         <BottomBar />
