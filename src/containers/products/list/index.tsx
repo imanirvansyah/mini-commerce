@@ -1,11 +1,12 @@
 import Link from "next/link";
+import FormCreate from "../form-create";
 
 const ProductList = () => {
   return (
     <div>
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold">Product List</h1>
-        <button>Add Product</button>
+        <FormCreate />
       </div>
       <div className="grid grid-cols-2 gap-4 mt-12">
         <Card product={{ id: 1, name: 'Product 1', description: 'Description 1' }} />
