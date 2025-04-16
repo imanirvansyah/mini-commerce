@@ -1,4 +1,4 @@
-import { CardOrder } from "./card"
+import { CardOrder } from "@/components/fragments/card-order"
 
 const ListOrders = () => {
   return (
