@@ -1,9 +1,7 @@
-export default function Home() {
-  return (
-    <div>
+import Dashboard from "@/containers/dashboard";
 
-    </div>
-  );
+export default function Home() {
+  return <Dashboard />;
 }
 
 
