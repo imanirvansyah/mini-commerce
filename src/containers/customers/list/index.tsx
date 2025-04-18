@@ -2,8 +2,6 @@ import Link from "next/link";
 const ListCustomers = () => {
   return (
     <div>
-      <h1 className="text-xl">Customer List</h1>
-      {/* Add your customer list code here */}
       <div className="w-full h-full overflow-scroll mt-12">
         <div className="flex items-center justify-start gap-2 mb-3">
           <input placeholder="search customer.." className="p-2" />

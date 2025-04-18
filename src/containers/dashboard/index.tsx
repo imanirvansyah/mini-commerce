@@ -1,9 +1,6 @@
 const Dashboard = () => {
   return (
     <div>
-      <h1>Dashboard</h1>
-      <p>Welcome to the dashboard!</p>
-
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4 mt-4">
         <div className="border p-3 rounded-md md:col-span-6">
           <p>Today revenue</p>

@@ -3,9 +3,7 @@ import { CardOrder } from "@/components/fragments/card-order"
 const ListOrders = () => {
   return (
     <div className="container">
-      <h1 className="text-xl font-bold">List Orders</h1>
-      <p>List of orders will be displayed here.</p>
-      <div className="flex flex-wrap gap-2 mt-2">
+      <div className="flex flex-wrap gap-2 mt-12">
         <span className="p-2 bg-slate-800 cursor-pointer rounded-md">All</span>
         <span className="p-2 bg-slate-800 cursor-pointer rounded-md">Uncomfirmed</span>
         <span className="p-2 bg-slate-800 cursor-pointer rounded-md">Need to send</span>

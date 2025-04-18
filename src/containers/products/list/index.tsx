@@ -4,11 +4,10 @@ import FormCreate from "../form-create";
 const ProductList = () => {
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold">Product List</h1>
+      <div className="mt-12 mb-6">
         <FormCreate />
       </div>
-      <div className="grid grid-cols-2 gap-4 mt-12">
+      <div className="grid grid-cols-2 gap-4">
         <Card product={{ id: 1, name: 'Product 1', description: 'Description 1' }} />
         <Card product={{ id: 2, name: 'Product 2', description: 'Description 2' }} />
         <Card product={{ id: 3, name: 'Product 3', description: 'Description 3' }} />
