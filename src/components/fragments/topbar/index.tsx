@@ -1,7 +1,7 @@
 'use client';
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SunIcon, MoonIcon } from "lucide-react";
 import { useSelectedLayoutSegments } from 'next/navigation';
 import { useTheme } from "next-themes";
@@ -22,6 +22,10 @@ const TopBar = () => {
   const title = titleMap[segment] || 'Welcome';
   const [isDarkMode, setIsDarkMode] = useState(false);
   const { setTheme } = useTheme();
+
+  useEffect(() => {
+    setTheme("dark")
+  }, [])
   return (
     <header className="flex items-center justify-between border-b p-4 fixed md:absolute w-full bg-background">
       <div className="flex items-center gap-3">

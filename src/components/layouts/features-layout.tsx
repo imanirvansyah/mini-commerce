@@ -1,8 +1,10 @@
 
-import Sidebar from "@/components/fragments/sidebar";
-import TopBar from "@/components/fragments/topbar";
 import BottomBar from "@/components/fragments/bottombar";
+import Sidebar from "@/components/fragments/sidebar";
 import { SidebarInset } from "@/components/ui/sidebar";
+import dynamic from "next/dynamic";
+
+const TopBar = dynamic(() => import('@/components/fragments/topbar'), { ssr: false });
 
 export default function FeaturesLayout({ children }: { children: React.ReactNode }) {
   return (
