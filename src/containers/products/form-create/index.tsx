@@ -1,5 +1,7 @@
 "use client"
 import { useState } from "react"
+import { Button } from "@/components/ui/button";
+import { PlusIcon } from "lucide-react";
 
 export type Variant = {
   id?: number;
@@ -12,7 +14,7 @@ const FormCreate = () => {
   const [variant, setVariant] = useState<Variant[]>([]);
   return (
     <div>
-      <button onClick={() => setToggle(true)}>+ Add product</button>
+      <Button onClick={() => setToggle(true)}><PlusIcon /> Add product</Button>
       {toggle && (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 flex items-start justify-center z-50 overflow-auto py-12">
           <div className="bg-black  border m-5 p-5 rounded-md shadow-lg w-96">
