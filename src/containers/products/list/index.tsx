@@ -2,11 +2,19 @@ import Link from "next/link";
 import FormCreate from "../form-create";
 import { Card as CardComponent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ImageIcon } from "lucide-react";
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { FilterIcon } from "lucide-react"
 
 const ProductList = () => {
   return (
-    <div>
-      <div className="mt-12 mb-6">
+    <div className="w-full h-full overflow-scroll mt-12">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-start gap-2 mb-3">
+          <Input placeholder="Search product here..." className="w-fit" />
+          <Button>Search</Button>
+          <Button variant={"outline"} size={"icon"}><FilterIcon /></Button>
+        </div>
         <FormCreate />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">

@@ -1,17 +1,16 @@
 import { CardOrder } from "@/components/fragments/card-order"
-
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { FilterIcon } from "lucide-react"
 const ListOrders = () => {
   return (
-    <div className="container">
-      <div className="flex flex-wrap gap-2 mt-12">
-        <span className="p-2 bg-slate-800 cursor-pointer rounded-md">All</span>
-        <span className="p-2 bg-slate-800 cursor-pointer rounded-md">Uncomfirmed</span>
-        <span className="p-2 bg-slate-800 cursor-pointer rounded-md">Need to send</span>
-        <span className="p-2 bg-slate-800 cursor-pointer rounded-md">Sent</span>
-        <span className="p-2 bg-slate-800 cursor-pointer rounded-md">Finished</span>
-        <span className="p-2 bg-slate-800 cursor-pointer rounded-md">Rejected</span>
+    <div className="w-full h-full overflow-scroll mt-12">
+      <div className="flex items-center justify-start gap-2 mb-3">
+        <Input placeholder="Search order here..." className="w-fit" />
+        <Button>Search</Button>
+        <Button variant={"outline"} size={"icon"}><FilterIcon /></Button>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
         <CardOrder />
         <CardOrder />
         <CardOrder />

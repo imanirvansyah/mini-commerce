@@ -1,64 +1,63 @@
 "use client"
-import { useState } from "react"
-export const CardOrder = () => {
-  const [toggle, setToggle] = useState<boolean>(false);
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
+import { Separator } from "@/components/ui/separator";
 
+export const CardOrder = () => {
   return (
-    <div className="border rounded-md">
-      <div className="flex items-center justify-between p-2 text-white rounded-md ">
+    <Card className="relative">
+      <CardHeader>
+        <CardTitle>Customer name</CardTitle>
+        <CardDescription>ORD190283018230</CardDescription>
+        <Badge className="absolute top-5 right-5" >shipping status</Badge>
+      </CardHeader>
+      <CardContent className="flex gap-3 items-center justify-between">
         <div>
-          <p>Customer name</p>
-          <span className="text-sm italic">Order id</span>
-        </div>
-        <span>shipping status</span>
-      </div>
-      <hr />
-      <div>
-        <div className="p-2 flex items-center justify-between ">
-          <div className="flex items-center justify start gap-2">
-            <div className="w-16 h-16 bg-red-300" />
-            <div>
-              <p>Items name</p>
-              <p>variant</p>
-              <p>2x</p>
-            </div>
-          </div>
-          <p>RP 100.000</p>
-        </div>
-      </div>
-      <hr />
-      <div>
-        <div className="p-2 flex items-center justify-between ">
-          <div className="flex items-center justify start gap-2">
-            <div className="w-16 h-16 bg-red-300" />
-            <div>
-              <p>Items name</p>
-              <p>variant</p>
-              <p>2x</p>
-            </div>
-          </div>
-          <p>RP 100.000</p>
-        </div>
-      </div>
-      <div className="text-right p-2">
-        <h1 className="text-2xl mb-2">Total: Rp200.000</h1>
-        <button className="bg-slate-700 p-2 mr-2 text-sm" onClick={() => setToggle(true)}>See detail shipment</button>
-        {/* <button className="border border-slate-700 p-2  text-sm">Print label</button> */}
-      </div>
-      {toggle && (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 flex items-start justify-center z-50 overflow-auto py-12">
-          <div className="bg-black  border m-5 p-5 rounded-md shadow-lg w-96">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold mb-4">Shipment Detail</h2>
-              <button onClick={() => setToggle(false)}>
-                <h2 className="text-xl font-bold mb-4">x</h2>
-              </button>
-            </div>
-            <p>Shipment detail will be displayed here.</p>
-            <button onClick={() => setToggle(false)} className="mt-4 text-red-500">Cancel</button>
+          <div className="w-16 h-16 bg-slate-200 rounded-md inline-block" />
+          <div className="inline-block ml-4">
+            <p className="font-semibold">Items name</p>
+            <p className="italic">variant</p>
+            <p className="text-muted-foreground text-sm">2x</p>
           </div>
         </div>
-      )}
-    </div>
+        <p>RP 100.000</p>
+      </CardContent>
+      <Separator className="my-4" />
+      <CardFooter className="flex-col items-end justify-between">
+        <h1 className="text-lg font-semibold">Total: Rp200.000</h1>
+        <div className="flex gap-3 mt-3">
+          <DialogDetailShipment />
+        </div>
+      </CardFooter>
+    </Card>
+  )
+}
+
+export const DialogDetailShipment = () => {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button size="sm" variant="default">See detail shipment</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <div className="flex flex-col gap-4">
+          <h1 className="text-lg font-semibold">Detail Shipment</h1>
+          <div className="flex gap-3 items-center justify-between">
+            <p>Order ID</p>
+            <p>ORD190283018230</p>
+          </div>
+          <div className="flex gap-3 items-center justify-between">
+            <p>Shipping Address</p>
+            <p>Jalan Raya No. 123, Jakarta</p>
+          </div>
+          <div className="flex gap-3 items-center justify-between">
+            <p>Shipping Method</p>
+            <p>JNE Express</p>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
   )
 }
