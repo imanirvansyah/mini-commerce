@@ -9,7 +9,7 @@ const ProductList = () => {
       <div className="mt-12 mb-6">
         <FormCreate />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
         <Card product={{ id: 1, name: 'Product 1', description: 'Description 1' }} />
         <Card product={{ id: 2, name: 'Product 2', description: 'Description 2' }} />
         <Card product={{ id: 3, name: 'Product 3', description: 'Description 3' }} />

@@ -2,8 +2,12 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
-  ({ className, type, ...props }, ref) => {
+interface inputProps extends React.ComponentProps<"input"> {
+  suffix?: string;
+  prefix?: string;
+}
+const Input = React.forwardRef<HTMLInputElement, inputProps>(
+  ({ className, type, suffix, ...props }, ref) => {
     return (
       <input
         type={type}
@@ -13,7 +17,10 @@ const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
         )}
         ref={ref}
         {...props}
-      />
+      >
+        {suffix && <span className="absolute right-2 top-1/2 transform -translate-y-1/2">{suffix}</span>}
+
+      </input>
     )
   }
 )
