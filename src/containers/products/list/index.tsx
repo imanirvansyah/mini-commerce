@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link";
 import FormCreate from "../form-create";
 import { Card as CardComponent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -5,8 +7,13 @@ import { ImageIcon } from "lucide-react";
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { FilterIcon } from "lucide-react"
+import { useProducts } from "./hooks/useProduct";
 
 const ProductList = () => {
+  const { data, isLoading, error } = useProducts();
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
   return (
     <div className="w-full h-full overflow-scroll mt-12">
       <div className="flex items-center justify-between mb-3">
@@ -18,15 +25,13 @@ const ProductList = () => {
         <FormCreate />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-        <Card product={{ id: 1, name: 'Product 1', description: 'Description 1' }} />
-        <Card product={{ id: 2, name: 'Product 2', description: 'Description 2' }} />
-        <Card product={{ id: 3, name: 'Product 3', description: 'Description 3' }} />
-        <Card product={{ id: 4, name: 'Product 4', description: 'Description 3' }} />
-        <Card product={{ id: 1, name: 'Product 1', description: 'Description 1' }} />
-        <Card product={{ id: 2, name: 'Product 2', description: 'Description 2' }} />
-        <Card product={{ id: 3, name: 'Product 3', description: 'Description 3' }} />
-        <Card product={{ id: 4, name: 'Product 4', description: 'Description 3' }} />
-        <Card product={{ id: 1, name: 'Product 1', description: 'Description 1' }} />
+        {data?.map((product, index) => (
+          <Card key={index} product={{
+            id: index,
+            name: product.productName,
+            description: product.productDescription,
+          }} />
+        ))}
       </div>
     </div>
   );

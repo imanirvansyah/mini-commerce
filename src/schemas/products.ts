@@ -10,7 +10,7 @@ export const variantSchema = z.object({
   qty: z.number().min(1, { message: "Variant stock is required" }),
 });
 
-export const productFormSchema = z.object({
+export const productSchema = z.object({
   productName: z.string({
     required_error: "Product name is required",
     invalid_type_error: "Product name must be a string",
@@ -34,6 +34,7 @@ export const productFormSchema = z.object({
   image: z.array(z.string()).optional(),
 })
 
-export type ProductFormValues = z.infer<typeof productFormSchema>;
-export type Variant = z.infer<typeof variantSchema>;
-export type Size = z.infer<typeof sizeSchema>;
+export type TProduct = z.infer<typeof productSchema>;
+export type TVariant = z.infer<typeof variantSchema>;
+export type TSize = z.infer<typeof sizeSchema>;
+
