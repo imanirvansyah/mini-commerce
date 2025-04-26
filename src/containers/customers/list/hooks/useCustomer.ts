@@ -24,7 +24,7 @@ export const useCustomer = () => {
   }
 
   const data = useQuery({
-    queryKey: ["orders", { page, debouncedSearch }],
+    queryKey: ["customers", { page, debouncedSearch }],
     queryFn: () => getAllCustomers({
       page,
       search: debouncedSearch,

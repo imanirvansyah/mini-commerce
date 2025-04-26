@@ -6,7 +6,7 @@ export default async function Orders() {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["orders"],
-    queryFn: getAllOrders
+    queryFn: () => getAllOrders({})
   });
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

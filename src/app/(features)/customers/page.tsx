@@ -6,7 +6,7 @@ export default async function Customers() {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["customers"],
-    queryFn: getAllCustomers,
+    queryFn: () => getAllCustomers({}),
   });
 
   return (
