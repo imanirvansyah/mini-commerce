@@ -1,7 +1,10 @@
-import Dashboard from "@/containers/dashboard";
-
+"use client";
+import { useEffect } from "react";
 export default function Home() {
-  return <Dashboard />;
+  useEffect(() => {
+    window.location.href = "/dashboard";
+  }, [])
+  return null;
 }
 
 

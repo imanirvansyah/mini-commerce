@@ -4,26 +4,29 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
+import { Order } from "@/services/order/order.type";
 
-export const CardOrder = () => {
+export const CardOrder = ({ data }: { data: Order }) => {
   return (
-    <Card className="relative">
+    <Card className="relative h-full">
       <CardHeader>
-        <CardTitle>Customer name</CardTitle>
-        <CardDescription>ORD190283018230</CardDescription>
-        <Badge className="absolute top-5 right-5" >shipping status</Badge>
+        <CardTitle>{data.name}</CardTitle>
+        <CardDescription>{data.orderId}</CardDescription>
+        <Badge className="absolute top-5 right-5" >{data.shippingStatus}</Badge>
       </CardHeader>
-      <CardContent className="flex gap-3 items-center justify-between">
-        <div>
-          <div className="w-16 h-16 bg-slate-200 rounded-md inline-block" />
-          <div className="inline-block ml-4">
-            <p className="font-semibold">Items name</p>
-            <p className="italic">variant</p>
-            <p className="text-muted-foreground text-sm">2x</p>
+      {data.items.map((item, index) => (
+        <CardContent key={index} className="flex gap-3 items-center justify-between">
+          <div>
+            <div className="w-16 h-16 bg-slate-200 rounded-md inline-block" />
+            <div className="inline-block ml-4">
+              <p className="font-semibold">{item.name}</p>
+              <p className="italic">{item.variant}</p>
+              <p className="text-muted-foreground text-sm">{item.qty}x</p>
+            </div>
           </div>
-        </div>
-        <p>RP 100.000</p>
-      </CardContent>
+          <p>RP {item.price}</p>
+        </CardContent>
+      ))}
       <Separator className="my-4" />
       <CardFooter className="flex-col items-end justify-between">
         <h1 className="text-lg font-semibold">Total: Rp200.000</h1>
