@@ -2,9 +2,9 @@
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { UseFormReturn } from "react-hook-form";
-import { ProductFormValues } from "./schema";
+import { TProduct } from "@/schemas/products";
 
-export const ProductBasicInfo = ({ form }: { form: UseFormReturn<ProductFormValues> }) => {
+export const ProductBasicInfo = ({ form }: { form: UseFormReturn<TProduct> }) => {
   return (
     <>
       <FormField

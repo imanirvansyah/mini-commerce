@@ -1,35 +1,20 @@
 "use client";
 import { ChartConfig, ChartContainer } from '@/components/ui/chart';
+import { RevenueChart as RevenueType } from '@/services/dashboard/dashboard.type';
 import { CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
 
-
-const DATA = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-  { month: "July", desktop: 186, mobile: 80 },
-  { month: "August", desktop: 305, mobile: 200 },
-  { month: "September", desktop: 237, mobile: 120 },
-  { month: "October", desktop: 73, mobile: 190 },
-  { month: "November", desktop: 209, mobile: 130 },
-  { month: "December", desktop: 214, mobile: 140 },
-]
-
-export const RevenueChart = () => {
+export const RevenueChart = ({ data }: { data: RevenueType[] }) => {
 
   const chartConfig = {
     desktop: {
-      label: "Desktop",
+      label: "Month",
       color: "#2563eb",
     },
   } satisfies ChartConfig
 
   return (
     <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
-      <LineChart accessibilityLayer data={DATA}>
+      <LineChart accessibilityLayer data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
           dataKey="month"
@@ -41,7 +26,7 @@ export const RevenueChart = () => {
         <YAxis />
         <Tooltip />
         {/* <Legend /> */}
-        <Line type="monotone" dataKey="desktop" stroke="#8884d8" activeDot={{ r: 8 }} />
+        <Line type="monotone" dataKey="total" stroke="#8884d8" activeDot={{ r: 8 }} />
       </LineChart>
     </ChartContainer>
   )

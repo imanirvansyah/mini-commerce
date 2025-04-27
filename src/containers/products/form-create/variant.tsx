@@ -5,9 +5,9 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { PlusIcon, TrashIcon } from "lucide-react";
 import { UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
-import { ProductFormValues } from "./schema";
+import { TProduct } from "@/schemas/products";
 
-export const ProductVariant = ({ form, variantFieldArray }: { form: UseFormReturn<ProductFormValues>, variantFieldArray: UseFieldArrayReturn<ProductFormValues, "variant"> }) => {
+export const ProductVariant = ({ form, variantFieldArray }: { form: UseFormReturn<TProduct>, variantFieldArray: UseFieldArrayReturn<TProduct, "variant"> }) => {
 
   const { fields, append, remove } = variantFieldArray
   const isNoVariant = form.watch("isNoVariant");

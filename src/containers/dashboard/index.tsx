@@ -1,17 +1,20 @@
+"use client"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { RevenueChart } from "./revenue-chart";
 import { ProductChart } from "./product-chart";
 import { RecentOrders } from "./recent-orders";
+import { useDashboard } from "./hooks/useDashboard";
 
 const Dashboard = () => {
+  const { data } = useDashboard();
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 gap-4 mt-4">
       <Card className="col-span-12  md:col-span-3">
         <CardHeader>
           <CardDescription>Today revenue</CardDescription>
-          <CardTitle className="@[250px]/card:text-3xl text-2xl font-semibold tabular-nums">Rp1.000.000</CardTitle>
+          <CardTitle className="@[250px]/card:text-3xl text-2xl font-semibold tabular-nums">Rp {data?.data.todayRevenue}</CardTitle>
         </CardHeader>
         <CardContent>
         </CardContent>
@@ -19,7 +22,7 @@ const Dashboard = () => {
       <Card className="col-span-12  md:col-span-3">
         <CardHeader>
           <CardDescription>Today&apos;s Orders</CardDescription>
-          <CardTitle className="@[250px]/card:text-3xl text-2xl font-semibold tabular-nums">3</CardTitle>
+          <CardTitle className="@[250px]/card:text-3xl text-2xl font-semibold tabular-nums">{data?.data.todaysOrders}</CardTitle>
         </CardHeader>
         <CardContent>
         </CardContent>
@@ -28,7 +31,9 @@ const Dashboard = () => {
       <Card className="col-span-12  md:col-span-3">
         <CardHeader>
           <CardDescription>Need to sent</CardDescription>
-          <CardTitle className="@[250px]/card:text-3xl text-2xl font-semibold tabular-nums">3</CardTitle>
+          <CardTitle className="@[250px]/card:text-3xl text-2xl font-semibold tabular-nums">
+            {data?.data.NeedToShip}
+          </CardTitle>
         </CardHeader>
         <CardContent>
         </CardContent>
@@ -36,7 +41,9 @@ const Dashboard = () => {
       <Card className="col-span-12  md:col-span-3">
         <CardHeader>
           <CardDescription>On Progress</CardDescription>
-          <CardTitle className="@[250px]/card:text-3xl text-2xl font-semibold tabular-nums">3</CardTitle>
+          <CardTitle className="@[250px]/card:text-3xl text-2xl font-semibold tabular-nums">
+            {data?.data.onHoldOrders}
+          </CardTitle>
         </CardHeader>
         <CardContent>
         </CardContent>
@@ -47,7 +54,7 @@ const Dashboard = () => {
           <CardDescription>Revenue of this year</CardDescription>
         </CardHeader>
         <CardContent>
-          <RevenueChart />
+          <RevenueChart data={data?.data.chart.revenue || []} />
         </CardContent>
       </Card>
       <Card className="col-span-12  md:col-span-6">
@@ -56,7 +63,7 @@ const Dashboard = () => {
           <CardDescription>Higher are better</CardDescription>
         </CardHeader>
         <CardContent>
-          <ProductChart />
+          <ProductChart data={data?.data.chart.products || []} />
         </CardContent>
       </Card>
       <Card className="col-span-12  md:col-span-12">
@@ -64,10 +71,9 @@ const Dashboard = () => {
           <CardTitle >Recent order list</CardTitle>
         </CardHeader>
         <CardContent>
-          <RecentOrders />
+          <RecentOrders data={data?.data.orderList || []} />
         </CardContent>
       </Card>
-
     </div>
   );
 }

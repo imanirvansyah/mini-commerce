@@ -5,9 +5,9 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { PlusIcon, TrashIcon } from "lucide-react";
 import { UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
-import { ProductFormValues } from "./schema";
+import { TProduct } from "@/schemas/products";
 
-export const ProductSize = ({ form, sizeFieldArray }: { form: UseFormReturn<ProductFormValues>, sizeFieldArray: UseFieldArrayReturn<ProductFormValues, "size"> }) => {
+export const ProductSize = ({ form, sizeFieldArray }: { form: UseFormReturn<TProduct>, sizeFieldArray: UseFieldArrayReturn<TProduct, "size"> }) => {
 
   const { fields: sizeFields, append: appendSize, remove: removeSize } = sizeFieldArray
 
