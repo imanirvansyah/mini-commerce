@@ -27,7 +27,7 @@ const ProductList = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
         {data?.map((product, index) => (
           <Card key={index} product={{
-            id: index,
+            id: index + 1,
             name: product.productName,
             description: product.productDescription,
           }} />
