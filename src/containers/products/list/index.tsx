@@ -15,7 +15,7 @@ const ProductList = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
   return (
-    <div className="w-full h-full overflow-scroll mt-12">
+    <div className="w-full h-full overflow-scroll">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-start gap-2 mb-3">
           <Input placeholder="Search product here..." className="w-fit" />

@@ -14,7 +14,7 @@ const ListCustomers = () => {
   const { data: list, isLoading } = data
   if (isLoading) return <div>Loading...</div>;
   return (
-    <div className="w-full h-full overflow-scroll mt-12">
+    <div className="w-full h-full overflow-scroll">
       <div className="flex items-center justify-start gap-2 mb-3">
         <Input
           placeholder="Search customer here..."

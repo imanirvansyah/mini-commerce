@@ -1,3 +1,5 @@
+import { ROUTES } from "./route"
+
 type menu = {
   title: string;
   icon: string;
@@ -5,42 +7,31 @@ type menu = {
 }
 export const MENUS: menu[] = [
   {
-    title: "Home",
-    url: "/dashboard",
+    title: "Dashboard",
+    url: ROUTES.DASHBOARD,
     icon: "home",
   },
   {
     title: "Products",
-    url: "/products",
+    url: ROUTES.PRODUCT,
     icon: "package",
   },
   {
     title: "Orders",
-    url: "/orders",
+    url: ROUTES.ORDER,
     icon: "shopping-cart",
   },
   {
     title: "Customers",
-    url: "/customers",
+    url: ROUTES.CUSTOMER,
     icon: "users",
   },
   {
     title: "Analytics",
-    url: "/analytics",
+    url: ROUTES.ANALYTIC,
     icon: "chart-bar-big",
   }
 ]
 
 export const MENUS_FOOTER: menu[] = []
-// export const MENUS_FOOTER: menu[] = [
-//   {
-//     title: "Account",
-//     url: "/account",
-//     icon: "account",
-//   },
-//   {
-//     title: "Notifications",
-//     url: "/notification",
-//     icon: "notification",
-//   },
-// ]
+

@@ -12,7 +12,7 @@ export default function FeaturesLayout({ children }: { children: React.ReactNode
       <Sidebar />
       <SidebarInset>
         <TopBar />
-        <main className="p-4 w-full my-12">
+        <main className="p-4 w-full my-12 pt-12">
           {children}
         </main>
       </SidebarInset>
