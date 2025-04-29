@@ -1,10 +1,8 @@
 import {
   Sidebar as SidebarComponent,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem
@@ -12,13 +10,14 @@ import {
 import { MENUS } from "@/constants/menu"
 import { ChartBarBig, HomeIcon, Package, ShoppingCart, Users } from "lucide-react"
 import Link from "next/link"
+import { SidebarFooter } from "./footer"
+import { SidebarHeader } from "./header"
+
 
 export default function Sidebar() {
   return (
     <SidebarComponent variant="inset">
-      <SidebarHeader className="px-4">
-        <h1 className="font-bold">Atmin Panel</h1>
-      </SidebarHeader>
+      <SidebarHeader />
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
@@ -38,7 +37,7 @@ export default function Sidebar() {
         </SidebarGroup >
       </SidebarContent>
       <SidebarFooter />
-    </SidebarComponent>
+    </SidebarComponent >
   )
 }
 

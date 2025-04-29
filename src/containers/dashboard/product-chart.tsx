@@ -8,7 +8,7 @@ export const ProductChart = ({ data }: { data: ProductType[] }) => {
   const chartConfig = {
     desktop: {
       label: "Name",
-      color: "#2563eb",
+      color: "hsl(var(--primary))",
     },
   } satisfies ChartConfig
 

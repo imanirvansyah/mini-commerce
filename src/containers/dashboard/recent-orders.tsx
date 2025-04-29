@@ -21,7 +21,7 @@ export const RecentOrders = ({ data }: { data: Order[] }) => {
             <TableCell>
               {order.items.map((item, index) => (
                 <div key={index} className="flex items-center justify-start gap-3 p-3 min-w-[200px]">
-                  <div className="w-10 h-10 bg-red-300 rounded-md" />
+                  <div className="w-10 h-10 bg-slate-200 rounded-md" />
                   <div>
                     <p className="font-bold">{item.name}</p>
                     <small className="text-muted-foreground italic">{item.variant} ~ {item.qty}x</small>
@@ -31,7 +31,7 @@ export const RecentOrders = ({ data }: { data: Order[] }) => {
             </TableCell>
             <TableCell>{order.name}</TableCell>
             <TableCell>
-              <Badge variant="destructive">
+              <Badge >
                 {order.shippingStatus}
               </Badge>
             </TableCell>

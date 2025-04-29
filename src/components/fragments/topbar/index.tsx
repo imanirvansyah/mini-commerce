@@ -20,7 +20,7 @@ const TopBar = () => {
   const segments = useSelectedLayoutSegments();
   const segment = segments[0]; // top-level route segment
   const title = titleMap[segment] || 'Welcome';
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const { setTheme } = useTheme();
 
   useEffect(() => {

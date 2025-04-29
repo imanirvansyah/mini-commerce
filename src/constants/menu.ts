@@ -30,3 +30,17 @@ export const MENUS: menu[] = [
     icon: "chart-bar-big",
   }
 ]
+
+export const MENUS_FOOTER: menu[] = []
+// export const MENUS_FOOTER: menu[] = [
+//   {
+//     title: "Account",
+//     url: "/account",
+//     icon: "account",
+//   },
+//   {
+//     title: "Notifications",
+//     url: "/notification",
+//     icon: "notification",
+//   },
+// ]
