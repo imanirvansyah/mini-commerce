@@ -3,7 +3,7 @@ import { ChartConfig, ChartContainer } from '@/components/ui/chart';
 import { RevenueChart as RevenueType } from '@/services/dashboard/dashboard.type';
 import { Line, LineChart, XAxis } from 'recharts';
 
-export const RevenueChart = ({ data }: { data: RevenueType[] }) => {
+const RevenueChart = ({ data }: { data: RevenueType[] }) => {
 
   const chartConfig = {
     desktop: {
@@ -31,3 +31,5 @@ export const RevenueChart = ({ data }: { data: RevenueType[] }) => {
     </ChartContainer>
   )
 }
+
+export default RevenueChart

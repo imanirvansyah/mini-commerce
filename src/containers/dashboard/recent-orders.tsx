@@ -2,7 +2,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { Order } from "@/services/order/order.type";
 
-export const RecentOrders = ({ data }: { data: Order[] }) => {
+const RecentOrders = ({ data }: { data: Order[] }) => {
   return (
     <Table>
       <TableHeader>
@@ -43,3 +43,5 @@ export const RecentOrders = ({ data }: { data: Order[] }) => {
     </Table>
   )
 }
+
+export default RecentOrders

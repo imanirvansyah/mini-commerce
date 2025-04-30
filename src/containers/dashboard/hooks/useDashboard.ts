@@ -7,5 +7,7 @@ export const useDashboard = () => {
     queryFn: getDashboard,
     staleTime: 10000,
     refetchOnWindowFocus: false,
+    throwOnError: true,
+    retry: false,
   });
 }

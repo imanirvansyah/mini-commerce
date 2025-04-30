@@ -1,13 +1,20 @@
 "use client"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { RevenueChart } from "./revenue-chart";
-import { ProductChart } from "./product-chart";
-import { RecentOrders } from "./recent-orders";
+import RecentOrders from "./recent-orders";
 import { useDashboard } from "./hooks/useDashboard";
+import LoadingPage from "@/app/(features)/dashboard/loading";
+import dynamic from "next/dynamic";
+
+const ProductChart = dynamic(() => import("./product-chart"), { ssr: false })
+const RevenueChart = dynamic(() => import("./revenue-chart"), { ssr: false })
 
 const Dashboard = () => {
-  const { data } = useDashboard();
+  const { data, isLoading } = useDashboard();
+
+  if (isLoading) {
+    return <LoadingPage />
+  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 gap-4 mt-4">
@@ -27,7 +34,6 @@ const Dashboard = () => {
         <CardContent>
         </CardContent>
       </Card>
-
       <Card className="col-span-12  md:col-span-3">
         <CardHeader>
           <CardDescription>Need to sent</CardDescription>

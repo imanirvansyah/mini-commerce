@@ -3,7 +3,7 @@ import { ChartConfig, ChartContainer } from '@/components/ui/chart';
 import { ProductChart as ProductType } from '@/services/dashboard/dashboard.type';
 import { Bar, BarChart, CartesianGrid, Tooltip, XAxis } from 'recharts';
 
-export const ProductChart = ({ data }: { data: ProductType[] }) => {
+const ProductChart = ({ data }: { data: ProductType[] }) => {
 
   const chartConfig = {
     desktop: {
@@ -28,3 +28,5 @@ export const ProductChart = ({ data }: { data: ProductType[] }) => {
     </ChartContainer>
   )
 }
+
+export default ProductChart

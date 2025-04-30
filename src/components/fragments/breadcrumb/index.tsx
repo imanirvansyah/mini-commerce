@@ -10,7 +10,6 @@ import { BREADCRUMBS } from "@/constants/breadcrumbs"
 import { Fragment } from "react";
 
 export const Breadcrumb = ({ title }: { title: string }) => {
-  console.log(title)
   const breadcrumbs = BREADCRUMBS[title];
   return (
     <BreadcrumbPrimitive>
