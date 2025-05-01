@@ -1,7 +1,8 @@
 import api from "@/lib/axios";
 import { TProduct } from "@/schemas/products";
+import { IResponse } from "../type";
 
-export const getAllProducts = async (): Promise<TProduct[]> => {
+export const getAllProducts = async (): Promise<IResponse<TProduct[]>> => {
   const res = await api.get("/products");
   return res.data;
 }

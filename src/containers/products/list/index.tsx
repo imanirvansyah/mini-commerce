@@ -1,67 +1,85 @@
 "use client"
 
-import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardFooter } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { FilterIcon, ImageIcon } from "lucide-react";
 import FormCreate from "../form-create";
-import { Card as CardComponent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ImageIcon } from "lucide-react";
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { FilterIcon } from "lucide-react"
 import { useProducts } from "./hooks/useProduct";
+import { TablePagination } from "@/components/fragments/pagination";
+import LoadingProduct from "@/app/(features)/products/loading";
+import Link from "next/link";
 
 const ProductList = () => {
-  const { data, isLoading, error } = useProducts();
+  const { data, page, handleNextPage, handlePageChange, handlePreviousPage } = useProducts();
 
-  if (isLoading) return <div>Loading...</div>;
+  const { data: list, isLoading, error } = data
+
+  if (isLoading) return <LoadingProduct />;
   if (error) return <div>Error: {error.message}</div>;
   return (
     <div className="w-full h-full overflow-scroll">
       <div className="flex items-center justify-between mb-3">
-        <div className="flex items-start gap-2 mb-3">
-          <Input placeholder="Search product here..." className="w-fit" />
-          <Button>Search</Button>
-          <Button variant={"outline"} size={"icon"}><FilterIcon /></Button>
+        <div className="flex items-start gap-2 mb-3 p-1">
+          <Input placeholder="Search product here..." />
+          <Button variant={"outline"} size={"icon"} className="px-3"><FilterIcon /></Button>
         </div>
         <FormCreate />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-        {data?.map((product, index) => (
-          <Card key={index} product={{
-            id: index + 1,
-            name: product.productName,
-            description: product.productDescription,
-          }} />
-        ))}
-      </div>
+      <Card>
+
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Product</TableHead>
+              <TableHead>Order</TableHead>
+              <TableHead>Price</TableHead>
+              <TableHead>Stock</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Action</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {list?.data.map((item, index) => (
+              <TableRow key={index}>
+                <TableCell className="flex gap-3 items-center">
+                  <div className="h-32 w-32 bg-gray-200 flex items-center justify-center rounded-t-md">
+                    <ImageIcon className="text-slate-500" />
+                  </div>
+                  <div>
+                    <p className="font-bold">{item.productName}</p>
+                    <p className="">{item.productDescription}</p>
+                  </div>
+                </TableCell>
+                <TableCell>100</TableCell>
+                <TableCell>Rp 120.000</TableCell>
+                <TableCell>100</TableCell>
+                <TableCell>
+                  <Badge variant="destructive">Add more stock</Badge>
+                </TableCell>
+                <TableCell>
+                  <Link href={`/products/${index + 1}`}>
+                    <Button>See detail</Button>
+                  </Link>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <CardFooter className="mt-4">
+          <TablePagination
+            data={list?.meta}
+            page={page}
+            handlePageChange={handlePageChange}
+            handleNextPage={() => handleNextPage(list?.meta.totalPage || 0)}
+            handlePreviousPage={handlePreviousPage}
+          />
+        </CardFooter>
+      </Card>
     </div>
   );
 }
 
 export default ProductList;
-
-
-
-export const Card: React.FC<{
-  product: ProductItemProps;
-}> = (props) => {
-  const { product } = props;
-  return (
-    <Link href={`/products/${product.id}`}>
-      <CardComponent>
-        <div className="h-56 w-full bg-gray-200 flex items-center justify-center rounded-t-md">
-          <ImageIcon className="text-slate-500" />
-        </div>
-        <CardHeader>
-          <CardTitle>{product.name}</CardTitle>
-          <CardDescription>{product.description}</CardDescription>
-        </CardHeader>
-      </CardComponent>
-    </Link>
-  );
-}
-
-// type ProductListProps = {
-//   products: ProductItemProps[];
-// }
-
-type ProductItemProps = { id: number; name: string; description: string }
