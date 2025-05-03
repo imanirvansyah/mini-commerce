@@ -1,16 +1,18 @@
 "use client"
 
+import { ItemOrder } from "@/components/fragments/item-order";
+import { TablePagination } from "@/components/fragments/pagination";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { FilterIcon } from "lucide-react";
 import { useOrders } from "./hooks/useOrder";
-import { Card } from "@/components/ui/card";
-import { DialogDetailShipment } from "@/components/fragments/card-order";
 
 const ListOrders = () => {
-  const { data, search, handleSearch } = useOrders();
+  const { data, page, search, handlePageChange, handleNextPage, handlePreviousPage, handleSearch } = useOrders();
   const { data: list, isLoading, error } = data;
 
   if (isLoading) return <div>Loading...</div>;
@@ -27,52 +29,72 @@ const ListOrders = () => {
         />
         <Button variant={"outline"} size={"icon"}><FilterIcon /></Button>
       </div>
-      <Card>
+      <Card >
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead >ID</TableHead>
-              <TableHead >Items</TableHead>
-              <TableHead >Customer&apos;s Name</TableHead>
-              <TableHead >Status</TableHead>
-              <TableHead className="text-right">Total </TableHead>
-              <TableHead className="text-right">Action</TableHead>
+              <TableHead>Order</TableHead>
+              <TableHead>Customer</TableHead>
+              <TableHead>Date</TableHead>
+              <TableHead>Total</TableHead>
+              <TableHead>Payment Status</TableHead>
+              <TableHead>Shipping Status</TableHead>
+              <TableHead>Delivery Method</TableHead>
+              <TableHead>Action</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {list?.data?.map((order, index) => (
-              <TableRow className="cursor-pointer" key={index}>
-                <TableCell className="">{order.orderId}</TableCell>
-                <TableCell>
-                  {order?.items.map((item, index) => (
-                    <div className="flex items-center justify-start gap-3 p-3 min-w-[200px] mb-1" key={index}>
-                      <div className="w-10 h-10 bg-red-300 rounded-md" />
-                      <div>
-                        <p className="font-bold">{item.name}</p>
-                        <small className="text-muted-foreground italic">{item.variant} ~ {item.qty}x</small>
-                      </div>
+            {list?.data.map((item, index) => {
+              return (
+                <TableRow key={index}>
+                  <TableCell className="w-[400px] md:w-auto">
+                    <ItemOrder data={item.product} id={item.id} />
+                  </TableCell>
+                  <TableCell className="w-[150px] md:w-auto">
+                    <div className="flex gap-3 items-center">
+                      <Avatar>
+                        <AvatarFallback>JD</AvatarFallback>
+                      </Avatar>
+                      <p>{item.customerName}</p>
                     </div>
-                  ))}
-                </TableCell>
-                <TableCell>{order.name}</TableCell>
-                <TableCell>
-                  <Badge variant="destructive">
-                    {order.shippingStatus}
-                  </Badge>
-                </TableCell>
-                <TableCell className="text-right">Rp{order.totalPrice}</TableCell>
-                <TableCell className="text-right">
-                  <DialogDetailShipment />
-                </TableCell>
-              </TableRow>
-            ))}
-
+                  </TableCell>
+                  <TableCell className="w-[150px] md:w-auto">
+                    Today, 03 May, 2025
+                  </TableCell>
+                  <TableCell className="w-[150px] md:w-auto">
+                    Rp {item.totalPurchase}
+                  </TableCell>
+                  <TableCell className="w-[150px] md:w-auto">
+                    <Badge>{item.paymentStatus.label}</Badge>
+                  </TableCell>
+                  <TableCell className="w-[150px] md:w-auto">
+                    <Badge>{item.shipping.status.label}</Badge>
+                  </TableCell>
+                  <TableCell className="w-[150px] md:w-auto">
+                    <p>{item.shipping.name}</p>
+                    <span className="text-muted-foreground text-xs mt-1">#{item.shipping.id}</span>
+                  </TableCell>
+                  <TableCell className="w-[150px] md:w-auto">
+                    <Button>See Detail</Button>
+                  </TableCell>
+                </TableRow>
+              )
+            })}
           </TableBody>
         </Table>
+        <CardFooter className="mt-4">
+          <TablePagination
+            data={list?.meta}
+            page={page}
+            handlePageChange={handlePageChange}
+            handleNextPage={() => handleNextPage(list?.meta.totalPage || 0)}
+            handlePreviousPage={handlePreviousPage}
+          />
+        </CardFooter>
       </Card>
     </div>
   )
 }
 
 
-export default ListOrders
+export default ListOrders;

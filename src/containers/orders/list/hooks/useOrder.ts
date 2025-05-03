@@ -37,6 +37,7 @@ export const useOrders = () => {
 
   return {
     data,
+    page,
     search,
     handleSearch: setSearch,
     handlePageChange,
