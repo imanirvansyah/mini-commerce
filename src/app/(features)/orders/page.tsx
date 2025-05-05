@@ -3,7 +3,7 @@ import ListOrders from "@/containers/orders/list";
 import { getAllOrders } from "@/services/order/order";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import { Suspense } from 'react';
-import LoadingOrder from "./loading";
+import LoadingTable from '@/components/fragments/loading-table';
 
 export default async function Orders() {
   const queryClient = new QueryClient();
@@ -14,7 +14,7 @@ export default async function Orders() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ErrorBoundary>
-        <Suspense fallback={<LoadingOrder />}>
+        <Suspense fallback={<LoadingTable />}>
           <ListOrders />
         </Suspense>
       </ErrorBoundary>

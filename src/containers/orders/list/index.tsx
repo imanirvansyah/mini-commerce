@@ -1,6 +1,7 @@
 "use client"
 
 import { ItemOrder } from "@/components/fragments/item-order";
+import LoadingTable from "@/components/fragments/loading-table";
 import { TablePagination } from "@/components/fragments/pagination";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -10,13 +11,11 @@ import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { FilterIcon } from "lucide-react";
 import { useOrders } from "./hooks/useOrder";
-import LoadingOrder from "@/app/(features)/orders/loading";
 
 const ListOrders = () => {
   const { data, page, search, handlePageChange, handleNextPage, handlePreviousPage, handleSearch } = useOrders();
   const { data: list, isLoading } = data;
-
-  if (isLoading) return <LoadingOrder />;
+  if (isLoading) return <LoadingTable />;
 
   return (
     <div className="w-full h-full overflow-scroll">

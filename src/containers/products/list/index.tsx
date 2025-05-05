@@ -1,24 +1,22 @@
 "use client"
 
+import LoadingTable from "@/components/fragments/loading-table";
+import { TablePagination } from "@/components/fragments/pagination";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { FilterIcon, ImageIcon } from "lucide-react";
+import Link from "next/link";
 import FormCreate from "../form-create";
 import { useProducts } from "./hooks/useProduct";
-import { TablePagination } from "@/components/fragments/pagination";
-import LoadingProduct from "@/app/(features)/products/loading";
-import Link from "next/link";
 
 const ProductList = () => {
   const { data, page, handleNextPage, handlePageChange, handlePreviousPage } = useProducts();
+  const { data: list, isLoading } = data
+  if (isLoading) return <LoadingTable />;
 
-  const { data: list, isLoading, error } = data
-
-  if (isLoading) return <LoadingProduct />;
-  if (error) return <div>Error: {error.message}</div>;
   return (
     <div className="w-full h-full overflow-scroll">
       <div className="flex items-center justify-between mb-3">

@@ -31,6 +31,7 @@ export const useCustomer = () => {
     }),
     staleTime: 10000,
     refetchOnWindowFocus: false,
+    throwOnError: true
   });
 
   return {

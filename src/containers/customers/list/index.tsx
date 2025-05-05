@@ -1,6 +1,8 @@
 "use client"
 
+import LoadingTable from "@/components/fragments/loading-table";
 import { TablePagination } from "@/components/fragments/pagination";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -12,7 +14,8 @@ import { useCustomer } from "./hooks/useCustomer";
 const ListCustomers = () => {
   const { data, page, search, handleSearch, handlePageChange, handleNextPage, handlePreviousPage } = useCustomer();
   const { data: list, isLoading } = data
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <LoadingTable />;
+
   return (
     <div className="w-full h-full overflow-scroll">
       <div className="flex items-center justify-start gap-2 mb-3">
@@ -38,7 +41,14 @@ const ListCustomers = () => {
           <TableBody>
             {list?.data.map((customer, index) => (
               <TableRow key={index}>
-                <TableCell>{customer.name}</TableCell>
+                <TableCell>
+                  <div className="flex gap-3 items-center">
+                    <Avatar>
+                      <AvatarFallback>JD</AvatarFallback>
+                    </Avatar>
+                    <p>{customer.name}</p>
+                  </div>
+                </TableCell>
                 <TableCell>{customer.email}</TableCell>
                 <TableCell>Rp{customer.totalPurchase}</TableCell>
                 <TableCell>{customer.lastPurchaseDate}</TableCell>
