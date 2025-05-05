@@ -10,8 +10,6 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <ThemeProvider
       attribute="class"
-      defaultTheme="system"
-      enableSystem
     >
       <SidebarProvider>
         <QueryClientProvider client={queryClient}>
