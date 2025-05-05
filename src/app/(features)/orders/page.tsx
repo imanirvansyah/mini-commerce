@@ -1,6 +1,9 @@
-import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import { ErrorBoundary } from '@/components/fragments/error-boundary';
 import ListOrders from "@/containers/orders/list";
 import { getAllOrders } from "@/services/order/order";
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import { Suspense } from 'react';
+import LoadingOrder from "./loading";
 
 export default async function Orders() {
   const queryClient = new QueryClient();
@@ -10,7 +13,11 @@ export default async function Orders() {
   });
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ListOrders />
+      <ErrorBoundary>
+        <Suspense fallback={<LoadingOrder />}>
+          <ListOrders />
+        </Suspense>
+      </ErrorBoundary>
     </HydrationBoundary>
   )
 }

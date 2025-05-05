@@ -10,13 +10,13 @@ import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { FilterIcon } from "lucide-react";
 import { useOrders } from "./hooks/useOrder";
+import LoadingOrder from "@/app/(features)/orders/loading";
 
 const ListOrders = () => {
   const { data, page, search, handlePageChange, handleNextPage, handlePreviousPage, handleSearch } = useOrders();
-  const { data: list, isLoading, error } = data;
+  const { data: list, isLoading } = data;
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (isLoading) return <LoadingOrder />;
 
   return (
     <div className="w-full h-full overflow-scroll">
