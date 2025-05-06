@@ -3,9 +3,9 @@ import { ILLUSTRATION } from "@/constants/illustration"
 import Image from "next/image"
 
 export type NegativeCaseProps = {
-  image: string,
-  title: string,
-  subtitle: string,
+  image?: string,
+  title?: string,
+  subtitle?: string,
   action?: () => void;
   actionLabel?: string;
 }

@@ -17,9 +17,9 @@ const RecentOrders = ({ data }: { data: Order[] }) => {
       <TableBody>
         {data.map((order, index) => (
           <TableRow key={index} className="cursor-pointer">
-            <TableCell className="">{order.orderId}</TableCell>
+            <TableCell className="">{order.id}</TableCell>
             <TableCell>
-              {order.items.map((item, index) => (
+              {order.product.map((item, index) => (
                 <div key={index} className="flex items-center justify-start gap-3 p-3 min-w-[200px]">
                   <div className="w-10 h-10 bg-slate-200 rounded-md" />
                   <div>
@@ -29,13 +29,13 @@ const RecentOrders = ({ data }: { data: Order[] }) => {
                 </div>
               ))}
             </TableCell>
-            <TableCell>{order.name}</TableCell>
+            <TableCell>{order.customerName}</TableCell>
             <TableCell>
               <Badge >
-                {order.shippingStatus}
+                {order.shipping.status.label}
               </Badge>
             </TableCell>
-            <TableCell className="text-right">Rp{order.totalPrice}</TableCell>
+            <TableCell className="text-right">Rp{order.totalPurchase}</TableCell>
           </TableRow>
         ))}
 
