@@ -53,7 +53,7 @@ const ListCustomers = () => {
                 <TableCell>Rp{customer.totalPurchase}</TableCell>
                 <TableCell>{customer.lastPurchaseDate}</TableCell>
                 <TableCell>
-                  <Link href="/customers/1">
+                  <Link href={`/customers/${customer.id}`}>
                     <Button size="sm">View</Button>
                   </Link>
                 </TableCell>

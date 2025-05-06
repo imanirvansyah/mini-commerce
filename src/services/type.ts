@@ -19,3 +19,7 @@ export interface IParamsBase {
   sort?: string;
   sortBy?: string;
 }
+
+export type TPageProps = {
+  params: Promise<{ id: string }>
+}

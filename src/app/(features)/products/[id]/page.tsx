@@ -4,11 +4,9 @@ import { getProductById } from "@/services/product/product";
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import LoadingProduct from './loading';
 import { Suspense } from 'react';
+import { TPageProps } from '@/services/type';
 
-type pageProps = {
-  params: Promise<{ id: string }>
-}
-export default async function Products({ params }: pageProps) {
+export default async function Products({ params }: TPageProps) {
   const { id } = await params;
 
   const queryClient = new QueryClient();
