@@ -1,174 +1,111 @@
 "use client"
+import ImageFallback from "@/components/fragments/image-fallback";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Edit, StarIcon } from "lucide-react";
-import { ImageIcon } from "lucide-react";
 import { useDetail } from "./hooks/useDetail";
+import { Badge } from "@/components/ui/badge";
+import LoadingProduct from "@/app/(features)/products/[id]/loading";
+import { CardReview } from "@/components/fragments/card-review";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
+
 
 export type ProductDetailProps = {
   id: string;
 }
-const ProductDetail = ({ id }: ProductDetailProps) => {
 
-  const { data } = useDetail(id);
+const ProductDetail = ({ id }: ProductDetailProps) => {
+  const { data, isLoading } = useDetail(id);
+  const [star, setStar] = useState(5);
+
+  if (isLoading) return <LoadingProduct />
+  console.log(star)
   return (
     <>
-      <div className="flex flex-col md:flex-row gap-5 mb-5">
-        <div className="my-3 flex-1 min-w-[33%] max-w-[500px]">
-          <div className="w-full aspect-square bg-gray-200 rounded-md flex items-center justify-center">
-            <ImageIcon className="text-slate-500" />
-          </div>
-          <div className="flex mt-3 gap-3">
-            <div className="w-1/2 aspect-square bg-gray-200 rounded-md flex items-center justify-center">
-              <ImageIcon className="text-slate-500" />
-            </div>
-            <div className="w-1/2 aspect-square bg-gray-200 rounded-md flex items-center justify-center">
-              <ImageIcon className="text-slate-500" />
-            </div>
-            <div className="w-1/2 aspect-square bg-gray-200 rounded-md flex items-center justify-center">
-              <ImageIcon className="text-slate-500" />
-            </div>
-            <div className="w-1/2 aspect-square bg-gray-200 rounded-md flex items-center justify-center">
-              <ImageIcon className="text-slate-500" />
-            </div>
-          </div>
+      <Button size="sm" className="mb-3"><Edit />Edit Product</Button>
+      <div className="flex flex-col md:flex-row gap-3">
+        <div className="hidden md:w-20 h-full md:flex md:flex-col gap-3">
+          <ImageFallback />
+          <ImageFallback />
+          <ImageFallback />
+          <ImageFallback />
+          <ImageFallback />
+        </div>
+        <div className="flex-1 max-w-[500px]">
+          <ImageFallback />
+        </div>
+        <div className="md:w-20 h-full flex md:hidden md:flex-col gap-3">
+          <ImageFallback />
+          <ImageFallback />
+          <ImageFallback />
+          <ImageFallback />
+          <ImageFallback />
         </div>
         <div className="flex-1">
-          <div className="my-5">
-            <h1 className="text-3xl font-bold">{data?.productName} <Button size="icon" variant="ghost"><Edit /></Button></h1>
-            <h2 className="text-lg">Price: Rp{data?.price} <Button size="icon" variant="ghost"><Edit /></Button></h2>
-            {/* <span className="text-sm italic">Sell more than 10k item this month</span> */}
+          <div className="flex justify-between items-start">
+            <div>
+              <h1 className="text-xl font-bold mb-1">{data?.productName}</h1>
+              <h2>Price: Rp{data?.price} </h2>
+            </div>
           </div>
-          <hr className="my-3" />
-          <div className="my-5">
-            <h5 className="font-bold text-lg mb-1">Product description  <Button variant="ghost" size="icon"><Edit /></Button></h5>
-            <p>{data?.productDescription}</p>
-          </div>
-          <div className="my-5">
-            <h5 className="font-bold text-lg mb-1">Product Stock</h5>
-            <p >Total Available: {data?.totalQty}</p>
-          </div>
-          <h6 className="mb-1 font-bold text-lg">Size</h6>
-          {data?.isAllSize && <p>The product is All sized</p>}
-          <div className="flex flex-wrap gap-2 mb-2 overflow-auto">
-            {!data?.isAllSize && data?.size?.map((item, index) => {
-              return (
-                <div key={index} className="border border-gray-300 p-2 mb-2 rounded-md flex gap-3 items-center justify-between">
-                  <div>
-                    <p>{item.name}</p>
-                  </div>
-                  <Button size="icon" variant="ghost"><Edit /></Button>
-                </div>
-              )
-            })}
+          <Separator className="my-4" />
+          <Tabs defaultValue="description">
+            <TabsList className="grid w-full grid-cols-2 mb-3">
+              <TabsTrigger value="description">Description</TabsTrigger>
+              <TabsTrigger value="review">Reviews</TabsTrigger>
+            </TabsList>
+            <TabsContent value="description">
+              <p className="mb-5">&quot;{data?.productDescription}&quot;</p>
+              <h6 className="font-bold mb-1">Size</h6>
+              {data?.isAllSize && <p>The product is All sized</p>}
+              {!data?.isAllSize && data?.size?.map((item, index) => {
+                return (
+                  <Badge className="mr-1" key={index}>{item.name}</Badge>
+                )
+              })}
 
-          </div>
-          <h6 className="mb-1 font-bold text-lg">Variant</h6>
-          {data?.isNoVariant && <p>There&apos;s no variant for this product</p>}
-          <div className="flex flex-wrap gap-2 mb-2 overflow-auto">
-            {!data?.isNoVariant && data?.variant?.map((item, index) => {
-              return (
-                <div key={index} className="border border-gray-300 p-2 mb-2 rounded-md flex gap-3 items-center justify-between">
-                  <div>
-                    <p>{item.name}</p>
-                    <p className="text-muted-foreground text-sm">Available: {item.qty}</p>
-                  </div>
-                  <Button size="icon" variant="ghost"><Edit /></Button>
-                </div>
-              )
-            })}
-
-          </div>
+              <h6 className="font-bold mt-6 mb-1">Variant</h6>
+              {data?.isNoVariant && <p>There&apos;s no variant for this product</p>}
+              <div className="flex flex-wrap gap-2 mb-2 overflow-auto">
+                {!data?.isNoVariant && data?.variant?.map((item, index) => {
+                  return (
+                    <div key={index} className="border p-2 mb-2 px-5 rounded-md flex gap-3 items-center justify-between">
+                      <div>
+                        <p>{item.name}</p>
+                        <p className="text-muted-foreground text-sm">Available: {item.qty}</p>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </TabsContent>
+            <TabsContent value="review">
+              <div className="flex flex-wrap gap-2 ">
+                {Array.from({ length: 5 }, (_, index) => (
+                  <Button variant="outline" size="sm" className={cn("mb-3", star === 5 - index && "bg-primary/10")} key={index} onClick={() => setStar(5 - index)}>
+                    <div className="flex items-center">
+                      {Array.from({ length: 5 - index }, (_, i) => (
+                        <StarIcon className="text-primary text-sm" key={i} />
+                      ))}
+                    </div>
+                  </Button>
+                ))}
+              </div>
+              <div className="max-h-[250px] overflow-auto">
+                <CardReview />
+                <CardReview />
+                <CardReview />
+                <CardReview />
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
-      </div>
-      <h5 className="font-bold text-lg mb-1">Product Reviews</h5>
-      <div className="flex gap-3">
-        <Button variant="outline" className="mb-3">
-          <div className="flex items-center">
-            <StarIcon className="text-yellow-300 text-sm" />
-            <StarIcon className="text-yellow-300 text-sm" />
-            <StarIcon className="text-yellow-300 text-sm" />
-            <StarIcon className="text-yellow-300 text-sm" />
-            <StarIcon className="text-yellow-300 text-sm" />
-          </div>
-          (100)
-        </Button>
-        <Button variant="outline" className="mb-3">
-          <div className="flex items-center">
-            <StarIcon className="text-yellow-300 text-sm" />
-            <StarIcon className="text-yellow-300 text-sm" />
-            <StarIcon className="text-yellow-300 text-sm" />
-            <StarIcon className="text-yellow-300 text-sm" />
-          </div>
-          (30)
-        </Button>
-        <Button variant="outline" className="mb-3">
-          <div className="flex items-center">
-            <StarIcon className="text-yellow-300 text-sm" />
-            <StarIcon className="text-yellow-300 text-sm" />
-            <StarIcon className="text-yellow-300 text-sm" />
-          </div>
-          (5)
-        </Button>
-        <Button variant="outline" className="mb-3">
-          <div className="flex items-center">
-            <StarIcon className="text-yellow-300 text-sm" />
-            <StarIcon className="text-yellow-300 text-sm" />
-          </div>
-          (0)
-        </Button>
-        <Button variant="outline" className="mb-3">
-          <div className="flex items-center">
-            <StarIcon className="text-yellow-300 text-sm" />
-          </div>
-          (0)
-        </Button>
-      </div>
-
-      <div className="flex flex-col gap-3">
-        <Card>
-          <CardHeader>
-            <CardTitle>John doe</CardTitle>
-            <div className="flex items-center">
-              <StarIcon className="text-yellow-300 text-sm" />
-              <StarIcon className="text-yellow-300 text-sm" />
-              <StarIcon className="text-yellow-300 text-sm" />
-              <StarIcon className="text-yellow-300 text-sm" />
-              <StarIcon className="text-yellow-300 text-sm" />
-            </div>
-            <CardDescription className="mr-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste non autem animi sunt illo facilis, tempore nostrum omnis quas tempora sapiente minima iusto dolore voluptate eligendi cum? Ut, eum repellat! </CardDescription>
-          </CardHeader>
-          <CardContent className="flex gap-3 items-start">
-
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>John doe</CardTitle>
-            <div className="flex items-center">
-              <StarIcon className="text-yellow-300 text-sm" />
-              <StarIcon className="text-yellow-300 text-sm" />
-              <StarIcon className="text-yellow-300 text-sm" />
-              <StarIcon className="text-yellow-300 text-sm" />
-              <StarIcon className="text-yellow-300 text-sm" />
-            </div>
-            <CardDescription className="mr-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste non autem animi sunt illo facilis, tempore nostrum omnis quas tempora sapiente minima iusto dolore voluptate eligendi cum? Ut, eum repellat! </CardDescription>
-          </CardHeader>
-          <CardContent className="flex gap-3 items-start">
-            <div className="w-32 aspect-square bg-gray-200 rounded-md flex items-center justify-center">
-              <ImageIcon className="text-slate-500" />
-            </div>
-            <div className="w-32 aspect-square bg-gray-200 rounded-md flex items-center justify-center">
-              <ImageIcon className="text-slate-500" />
-            </div>
-            <div className="w-32 aspect-square bg-gray-200 rounded-md flex items-center justify-center">
-              <ImageIcon className="text-slate-500" />
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </>
   )
 }
 
 export default ProductDetail;
+

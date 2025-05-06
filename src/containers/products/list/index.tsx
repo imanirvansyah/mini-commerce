@@ -1,5 +1,6 @@
 "use client"
 
+import ImageFallback from "@/components/fragments/image-fallback";
 import LoadingTable from "@/components/fragments/loading-table";
 import { TablePagination } from "@/components/fragments/pagination";
 import { Badge } from "@/components/ui/badge";
@@ -7,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { FilterIcon, ImageIcon } from "lucide-react";
+import { FilterIcon } from "lucide-react";
 import Link from "next/link";
 import FormCreate from "../form-create";
 import { useProducts } from "./hooks/useProduct";
@@ -43,9 +44,7 @@ const ProductList = () => {
             {list?.data.map((item, index) => (
               <TableRow key={index}>
                 <TableCell className="flex gap-3 items-center">
-                  <div className="h-32 w-32 bg-gray-200 flex items-center justify-center rounded-t-md">
-                    <ImageIcon className="text-slate-500" />
-                  </div>
+                  <ImageFallback className="w-24" />
                   <div>
                     <p className="font-bold">{item.productName}</p>
                     <p className="">{item.productDescription}</p>

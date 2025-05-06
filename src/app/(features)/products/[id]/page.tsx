@@ -1,6 +1,9 @@
+import { ErrorBoundary } from '@/components/fragments/error-boundary';
 import ProductDetail from "@/containers/products/detail";
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { getProductById } from "@/services/product/product";
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import LoadingProduct from './loading';
+import { Suspense } from 'react';
 
 type pageProps = {
   params: Promise<{ id: string }>
@@ -15,7 +18,11 @@ export default async function Products({ params }: pageProps) {
   });
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ProductDetail id={id} />
+      <ErrorBoundary>
+        <Suspense fallback={<LoadingProduct />}>
+          <ProductDetail id={id} />
+        </Suspense>
+      </ErrorBoundary>
     </HydrationBoundary>
   );
 }
