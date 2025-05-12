@@ -16,9 +16,10 @@ export type Variant = {
 }
 
 const FormCreate = () => {
-  const { form, variantFieldArray, sizeFieldArray } = useProductForm();
+  const { form, variantFieldArray, sizeFieldArray, mutate, openDialog, setOpenDialog } = useProductForm();
+
   return (
-    <Dialog>
+    <Dialog open={openDialog} onOpenChange={setOpenDialog}>
       <DialogTrigger asChild>
         <Button ><PlusIcon /> Add product</Button>
       </DialogTrigger>
@@ -29,7 +30,7 @@ const FormCreate = () => {
         </DialogDescription>
         <Form {...form}>
           <form onSubmit={form.handleSubmit((data) => {
-            console.log(data)
+            mutate(data)
           })}>
             <ProductBasicInfo form={form} />
             <Separator className="my-4" />

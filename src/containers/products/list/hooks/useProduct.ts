@@ -27,6 +27,7 @@ export const useProducts = () => {
     queryFn: () => getAllProducts(),
     staleTime: 10000,
     refetchOnWindowFocus: false,
+    throwOnError: true
   })
 
   return {
