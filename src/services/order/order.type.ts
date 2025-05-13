@@ -1,4 +1,4 @@
-
+import { BadgeProps } from "@/components/ui/badge";
 
 export type Product = {
   name: string;
@@ -8,12 +8,12 @@ export type Product = {
 
 export type PaymentStatus = {
   label: string;
-  variant: string;
+  variant: BadgeProps["variant"];
 };
 
 export type ShippingStatus = {
   label: string;
-  variant: string;
+  variant: BadgeProps["variant"];
 };
 
 export type Shipping = {

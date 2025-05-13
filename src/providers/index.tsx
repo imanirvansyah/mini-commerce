@@ -6,7 +6,16 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
-  const queryClient = new QueryClient()
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 10000,
+        refetchOnWindowFocus: false,
+        retry: false,
+        throwOnError: true,
+      },
+    },
+  })
   return (
     <ThemeProvider
       attribute="class"

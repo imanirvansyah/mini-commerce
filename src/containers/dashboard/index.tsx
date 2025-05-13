@@ -1,87 +1,124 @@
 "use client"
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import RecentOrders from "./recent-orders";
-import { useDashboard } from "./hooks/useDashboard";
 import LoadingPage from "@/app/(features)/dashboard/loading";
-import dynamic from "next/dynamic";
+import BarChart from "@/components/fragments/chart/bar";
+import LineChart from "@/components/fragments/chart/line";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useDashboard } from "./hooks/useDashboard";
+import RecentOrders from "./recent-orders";
 
-const ProductChart = dynamic(() => import("./product-chart"), { ssr: false })
-const RevenueChart = dynamic(() => import("./revenue-chart"), { ssr: false })
+const revenueChartConfig = {
+  desktop: {
+    label: "Month",
+    color: "hsl(var(--primary))",
+  },
+}
+
+const productChartConfig = {
+  desktop: {
+    label: "Name",
+    color: "hsl(var(--primary))",
+  },
+}
 
 const Dashboard = () => {
-  const { data, isLoading } = useDashboard();
+  const {
+    todayRevenue,
+    todaysOrders,
+    NeedToShip,
+    onHoldOrders,
+    revenueChart,
+    productChart,
+    orderList,
+    isPending
+  } = useDashboard();
 
-  if (isLoading) {
+  if (isPending) {
     return <LoadingPage />
   }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 gap-4 mt-4">
-      <Card className="col-span-12  md:col-span-3">
-        <CardHeader>
-          <CardDescription>Today revenue</CardDescription>
-          <CardTitle className="@[250px]/card:text-3xl text-2xl font-semibold tabular-nums">Rp {data?.data.todayRevenue}</CardTitle>
-        </CardHeader>
-        <CardContent>
-        </CardContent>
-      </Card>
-      <Card className="col-span-12  md:col-span-3">
-        <CardHeader>
-          <CardDescription>Today&apos;s Orders</CardDescription>
-          <CardTitle className="@[250px]/card:text-3xl text-2xl font-semibold tabular-nums">{data?.data.todaysOrders}</CardTitle>
-        </CardHeader>
-        <CardContent>
-        </CardContent>
-      </Card>
-      <Card className="col-span-12  md:col-span-3">
-        <CardHeader>
-          <CardDescription>Need to sent</CardDescription>
-          <CardTitle className="@[250px]/card:text-3xl text-2xl font-semibold tabular-nums">
-            {data?.data.NeedToShip}
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-        </CardContent>
-      </Card>
-      <Card className="col-span-12  md:col-span-3">
-        <CardHeader>
-          <CardDescription>On Progress</CardDescription>
-          <CardTitle className="@[250px]/card:text-3xl text-2xl font-semibold tabular-nums">
-            {data?.data.onHoldOrders}
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-        </CardContent>
-      </Card>
-      <Card className="col-span-12  md:col-span-6">
-        <CardHeader>
-          <CardTitle >Revenue chart</CardTitle>
-          <CardDescription>Revenue of this year</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <RevenueChart data={data?.data.chart.revenue || []} />
-        </CardContent>
-      </Card>
-      <Card className="col-span-12  md:col-span-6">
-        <CardHeader>
-          <CardTitle >Product chart</CardTitle>
-          <CardDescription>Higher are better</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ProductChart data={data?.data.chart.products || []} />
-        </CardContent>
-      </Card>
-      <Card className="col-span-12  md:col-span-12">
-        <CardHeader>
-          <CardTitle >Recent order list</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <RecentOrders data={data?.data.orderList || []} />
-        </CardContent>
-      </Card>
+      <Container
+        title={`Rp ${todayRevenue}`}
+        subtitle="Today revenue"
+        column={12}
+        mdColumn={3}
+      />
+      <Container
+        title={`Rp ${todaysOrders}`}
+        subtitle="Today&apos;s Orders"
+        column={12}
+        mdColumn={3}
+      />
+      <Container
+        title={`Rp ${NeedToShip}`}
+        subtitle="Need to sent"
+        column={12}
+        mdColumn={3}
+      />
+      <Container
+        title={`Rp ${onHoldOrders}`}
+        subtitle="On Progress"
+        column={12}
+        mdColumn={3}
+      />
+      <Container
+        title={`Revenue of this year`}
+        subtitle="Revenue chart"
+        column={12}
+        mdColumn={6}
+      >
+        <LineChart data={revenueChart || []} config={revenueChartConfig} />
+      </Container>
+      <Container
+        title={`Higher are better`}
+        subtitle="Product chart"
+        column={12}
+        mdColumn={6}
+      >
+        <BarChart data={productChart || []} config={productChartConfig} />
+      </Container>
+      <Container
+        title={`Recent order list`}
+        subtitle=""
+        column={12}
+        mdColumn={12}
+      >
+        <RecentOrders data={orderList || []} />
+      </Container>
     </div>
   );
 }
 
 export default Dashboard;
+
+type containerProps = {
+  column: number;
+  mdColumn: number;
+  title: string;
+  subtitle: string;
+  children?: React.ReactNode
+}
+
+const Container = ({
+  column,
+  mdColumn,
+  title,
+  subtitle,
+  children
+}: containerProps) => {
+  return (
+    <Card className={`col-span-${column}  md:col-span-${mdColumn}`}>
+      <CardHeader>
+        <CardDescription>{subtitle}</CardDescription>
+        <CardTitle className="@[250px]/card:text-3xl text-2xl font-semibold tabular-nums">{title}</CardTitle>
+      </CardHeader>
+      {!!children && (
+        <CardContent>
+          {children}
+        </CardContent>
+      )}
+    </Card>
+  )
+}
