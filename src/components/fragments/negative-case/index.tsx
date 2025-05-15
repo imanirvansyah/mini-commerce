@@ -22,7 +22,7 @@ const NegativeCase = ({
 }: NegativeCaseProps) => {
   return (
     <div className={cn("w-full h-full p-5 flex flex-col gap-1 items-center justify-center text-center", className)}>
-      <Image src={image} width={500} height={500} alt="Server down" />
+      <Image src={image} width={300} height={300} alt="Server down" className="max-w-[300px]" />
       <h1 className="text-2xl font-bold mt-10">{title}</h1>
       <p className="text-muted-foreground">{subtitle}</p>
       {!!action && <Button className="mt-5 uppercase tracking-widest" onClick={action} size={"lg"}>{actionLabel}</Button>}

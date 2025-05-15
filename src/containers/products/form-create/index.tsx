@@ -17,7 +17,6 @@ export type Variant = {
 
 const FormCreate = () => {
   const { form, variantFieldArray, sizeFieldArray, mutate, openDialog, setOpenDialog } = useProductForm();
-
   return (
     <Dialog open={openDialog} onOpenChange={setOpenDialog}>
       <DialogTrigger asChild>

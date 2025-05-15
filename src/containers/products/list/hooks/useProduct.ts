@@ -25,9 +25,6 @@ export const useProducts = () => {
   const data = useQuery({
     queryKey: ['products', { page, debouncedSearch }],
     queryFn: () => getAllProducts(),
-    staleTime: 10000,
-    refetchOnWindowFocus: false,
-    throwOnError: true
   })
 
   return {

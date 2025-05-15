@@ -2,31 +2,29 @@
 
 import ImageFallback from "@/components/fragments/image-fallback";
 import LoadingTable from "@/components/fragments/loading-table";
+import NegativeCase from "@/components/fragments/negative-case";
 import { TablePagination } from "@/components/fragments/pagination";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { FilterIcon } from "lucide-react";
+import { ILLUSTRATION } from "@/constants/illustration";
+import { toIDR } from "@/utils/number";
 import Link from "next/link";
 import FormCreate from "../form-create";
 import { useProducts } from "./hooks/useProduct";
-import { toIDR } from "@/utils/number";
-import NegativeCase from "@/components/fragments/negative-case";
-import { ILLUSTRATION } from "@/constants/illustration";
 
 const ProductList = () => {
   const { data, page, handleNextPage, handlePageChange, handlePreviousPage } = useProducts();
-  const { data: list, isLoading } = data
-  if (isLoading) return <LoadingTable />;
+  const { data: list, isPending } = data
+  if (isPending) return <LoadingTable />;
 
   return (
     <div>
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-start gap-2 mb-3 p-1">
           <Input placeholder="Search product here..." />
-          <Button variant={"outline"} size={"icon"} className="px-3"><FilterIcon /></Button>
         </div>
         <FormCreate />
       </div>
@@ -57,7 +55,7 @@ const ProductList = () => {
                   <TableCell className="tabular-nums">{toIDR(item.price)}</TableCell>
                   <TableCell className="tabular-nums">{item.totalQty}</TableCell>
                   <TableCell>
-                    <Badge variant="destructive">Add more stock</Badge>
+                    <Badge variant={item.totalQty <= 5 ? "destructive" : "default"}>{item.totalQty <= 5 ? "Add more stock" : "Good"}</Badge>
                   </TableCell>
                   <TableCell>
                     <Link href={`/products/${item.id}`}>

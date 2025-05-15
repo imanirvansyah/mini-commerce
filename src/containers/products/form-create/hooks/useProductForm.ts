@@ -4,6 +4,7 @@ import { productSchema, TProduct } from "@/schemas/products";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postNewProduct } from "@/services/product/product";
 import { useState } from "react";
+import { toast } from "sonner"
 
 export const useProductForm = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -26,12 +27,13 @@ export const useProductForm = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mutationFn: async (params: any) => postNewProduct(params),
     onSuccess: () => {
-      console.log("success submitting")
       qc.invalidateQueries({ queryKey: ["products"] })
       form.reset();
+      toast.success("Item is successfuly added")
     },
     onError: (e) => {
       console.log(e)
+      toast.success("Oops, there's something wrong")
     },
     onSettled: () => {
       setOpenDialog(false)
