@@ -4,16 +4,17 @@ export type Product = {
   name: string;
   variant: string;
   qty: number;
+  price: number;
 };
 
 export type PaymentStatus = {
   label: string;
-  variant: BadgeProps["variant"];
+  variant: BadgeProps["color"];
 };
 
 export type ShippingStatus = {
   label: string;
-  variant: BadgeProps["variant"];
+  variant: BadgeProps["color"];
 };
 
 export type Shipping = {

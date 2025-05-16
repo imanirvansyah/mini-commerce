@@ -7,6 +7,7 @@ import { useDebounce } from "@/hooks/use-debounce";
 export const useOrders = () => {
   const [search, setSearch] = useState<string>("");
   const [page, setPage] = useState<number>(1);
+  const [status, setStatus] = useState<string>("all")
   const debouncedSearch = useDebounce(search, 500);
 
 
@@ -26,10 +27,11 @@ export const useOrders = () => {
 
 
   const data = useQuery({
-    queryKey: ["orders", { page, debouncedSearch }],
+    queryKey: ["orders", { page, debouncedSearch, status }],
     queryFn: () => getAllOrders({
       page,
-      search: debouncedSearch
+      search: debouncedSearch,
+      status: status
     }),
     staleTime: 10000,
     refetchOnWindowFocus: false,
@@ -40,6 +42,8 @@ export const useOrders = () => {
     data,
     page,
     search,
+    status,
+    handleStatus: setStatus,
     handleSearch: setSearch,
     handlePageChange,
     handlePreviousPage,
